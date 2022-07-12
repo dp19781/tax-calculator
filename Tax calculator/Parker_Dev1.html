@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width-device-width, initial-scale = 1.0">
+	<link rel="stylesheet" href="Parker_Dev1_Style.css">
+	<title>Federal Tax Calculator</title>
+</head>
+	<body>
+	
+		<h1>Federal Tax Calculator</h1>
+		<div id = "container">
+			<form id ="taxForm">
+			
+				<div>
+                    <label for="firstname">First Name : </label><br>
+                    <input type="text" name="firstname" id="firstname"/> 
+                </div>
+				
+				<div>
+                    <label for="lastname">Last Name : </label><br>
+                    <input type="text" name="lastname" id="lastname"/> 
+                </div>
+				
+				<div>
+                    <label for="pin">Pin Number : </label><br>
+                    <input type="password" name="pin" id="pin"/> 
+                </div>
+				
+				<div>
+                    <label for="gross">Gross Income : </label><br>
+                    <input type="number" name ="gross" id="gross" min="0"/>
+                </div>
+				 
+				<div>
+                    <label for="deduction">Deduction : </label><br>
+                    <select id="deduction">
+						<option selected="selected" value ="Y" >Apply deduction</option>
+						<option value ="N">Do not apply deduction</option>
+					</select>
+                </div>
+				<br>
+				<div>
+                    <label for="taxsdue">Taxes Due : </label><br>
+                    <input type="" name ="taxesdue" id="taxesdue"/>
+                </div>
+				
+				<div>
+                    <br>
+                    <input type="button" onclick ="taxesDue()" name ="submit" id="submit" value ="Submit"/>
+					<input type="button"  name ="res" id="res" value ="Reset Form" onclick ="resetForm()"/>
+					
+                </div>
+				
+				
+			</form>
+		</div>
+	
+	<script>
+		//calculate gross income
+		function displayGrossIncome(){
+			var grossIncome = document.getElementById("gross").value;
+			var deduct = document.getElementById("deduction").value;
+			var totalGrossIncome = 0;
+			//alert(deduct);
+			
+			if(deduct[0] =='Y' )
+			{
+				//with deduction);
+				totalGrossIncome = (grossIncome - 6300);
+			}else
+			{
+			//without deduction
+			totalGrossIncome = grossIncome;
+			}
+			//alert(totalGrossIncome);
+			return totalGrossIncome;
+			
+		}
+		
+		
+		//calculate taxes due
+		function taxesDue()
+		{
+		var displayIncome = displayGrossIncome();
+		var taxesTotal = 0;
+		
+		if(displayIncome >= 0 && displayIncome <= 9275 )
+		{
+			taxesTotal = (displayIncome *.10);
+		}
+				
+		if(displayIncome >= 9276 && displayIncome <= 37650)
+		{
+			taxesTotal = 927.50 + ((displayIncome - 9275)* .15);
+		}
+		
+		
+		if(displayIncome >= 37651 && displayIncome <= 91150){
+			taxesTotal = 5183.75 + ((displayIncome - 37650)* .25);
+		}
+		
+		if(displayIncome >= 91151 && displayIncome <= 190150){
+			taxesTotal = 18558 + ((displayIncome - 91150)* .28);
+		}
+		
+		if(displayIncome >= 190151 && displayIncome <= 413350){
+			taxesTotal = 46278.75 + ((displayIncome - 190150)* .33);
+		}
+		
+		if(displayIncome >= 413351 && displayIncome <= 415050){
+			taxesTotal = 119934.75 + ((displayIncome - 413350)* .35);
+		}
+		
+		if(displayIncome >= 415051){
+			taxesTotal = 120529.75 + ((displayIncome - 415050)* .396);
+		} 
+		
+	
+		
+		{
+		//alert(taxesTotal);
+		document.getElementById("taxesdue").value =taxesTotal;
+		
+		}
+		}
+		
+		//reset form
+		function resetForm() 
+		{
+			document.getElementById("taxesdue").innerHTML = " ";
+			document.getElementById("taxForm").reset();
+			}
+		
+	
+		
+	</script>
+	</body>
+</html>
